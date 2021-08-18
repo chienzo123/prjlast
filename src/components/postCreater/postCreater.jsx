@@ -5,6 +5,7 @@ import VideocamIcon from '@material-ui/icons/Videocam';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import  firebase from 'firebase/app';
+import {datab} from '../../firebase';
 import 'firebase/auth';
 import 'firebase/database';
 import Provider from '../context';
@@ -15,7 +16,10 @@ import Provider from '../context';
 
 function PostCreator(){
     const [input, setInput] = useState('');
-    
+    var arr;
+    datab.once('value').then(snapshot => {
+       arr = Object.values(snapshot.val()).length;
+      })
     const user = {
         img : firebase.auth().currentUser.photoURL,
         name : firebase.auth().currentUser.displayName
@@ -50,8 +54,7 @@ function PostCreator(){
         var connecteData = firebase.database().ref('post');
       
         connecteData.push({
-
-            id: Math.random(),
+           id: Math.random(),
             authorName: user.name,
             authorPic: user.img,
             message: input,

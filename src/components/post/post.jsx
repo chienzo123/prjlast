@@ -5,21 +5,70 @@ import ChatBubbleOutlinedIcon from '@material-ui/icons/ChatBubbleOutlined';
 import NearMeIcon from '@material-ui/icons/NearMe';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import { IconButton } from '@material-ui/core';
 import './post.scss'
+import  firebase from 'firebase/app';
 
 
 function Post({authorPic, authorName, timestamp, message, optionalImg, like, id}){
     const [check, setCheck] = useState(true);
+    const [pub, setPub] = useState(true);
     
     return (
         
         <div className="post">
             <div className="post__top">
+                <div className="post__top--user">
             <Avatar src ={authorPic} className="post__avatar" />
             <div className="post__info">
                 <h3>{authorName}</h3>
                 <p>{timestamp}</p>
             </div>
+            </div>
+            <div className="post__select" >
+                <IconButton onClick={() => {
+                    setPub(!pub);
+                    if(pub)
+                    document.getElementById("s"+id).setAttribute("style", "display: block !important;")
+                    if(!pub)
+                    document.getElementById("s"+id).removeAttribute("style","display: block !impotant; ")
+                }}>
+            <MoreHorizIcon/>
+            </IconButton>
+            </div>
+            <div className="post__select--option" id = {`s${id}`}>
+                <button className="post1">
+                <p>
+                    Sửa
+                    </p>
+                </button>
+                <hr/>
+                <button className="post2" onClick={() => {
+                    var connecteData = firebase.database().ref('post');
+                    var item;
+                    connecteData.once("value").then(snapshot => {
+                        for(var i =0 ; i < Object.keys(snapshot.val()).length ; i++){
+                            if(Object.values(snapshot.val())[i].id == id){
+                                item = i;
+                            }  
+                        }
+                        console.log(item);
+                        //connecteData[1].remove();
+                       connecteData.once("value").then(snapshot => {
+                           connecteData.child(Object.keys(snapshot.val())[item]).remove();
+                       })
+                    })
+                    
+                      
+                    
+                }}>
+                    <p>
+                    Xóa
+                    </p>
+                </button>
+            </div>
+            
          </div>
         <div className="post__bottom">
         <p>{message}</p>
