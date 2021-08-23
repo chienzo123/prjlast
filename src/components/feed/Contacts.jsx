@@ -21,7 +21,6 @@ export default class Contacts extends Component{
                                         message={contact.message}
                                         optionalImg={contact.optionalImg}
                                         like={contact.like}
-                                        
                                         />
                                         )
                                 }
