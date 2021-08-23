@@ -8,6 +8,7 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase, { uiConfig } from './firebase';
 import {HashRouter as Router, Route, Switch} from 'react-router-dom';
 import Watch from "./components/watch/watch";
+import Chat from './components/Chat/chat';
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
             </Switch>
             
             <RightSidebar /> 
+            <Chat/>
           </div> }
           </Router>
         </Fragment>
