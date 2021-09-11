@@ -9,6 +9,7 @@ import firebase, { uiConfig } from './firebase';
 import {HashRouter as Router, Route, Switch} from 'react-router-dom';
 import Watch from "./components/watch/watch";
 import Chat from './components/Chat/chat';
+import Profile from './components/Profile/profile'
 
 
 function App() {
@@ -18,6 +19,9 @@ function App() {
     const unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
       setIsSignedIn(!!user);
     });
+   
+        
+
     return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
   }, []);
 
@@ -44,6 +48,8 @@ function App() {
         <Fragment>
         <Router basename={process.env.PUBLIC_URL}>
           <Header />
+          <Switch>
+          <Route exact path="/pro" component={Profile} />
           { <div className="app__body">
             <LeftSidebar />
             <Switch>
@@ -55,6 +61,7 @@ function App() {
             <RightSidebar /> 
             <Chat/>
           </div> }
+          </Switch>
           </Router>
         </Fragment>
       

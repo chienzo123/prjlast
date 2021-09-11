@@ -8,7 +8,9 @@ function Contact({contactAvatar, contactName}){
             {contactName && contactAvatar && (
                 <div className="contact contact__wrp">
                     <div className="avatar__wrp">
+                        <div>
                         <Avatar scr={contactAvatar} className="contact__avatar" />
+                        </div>
                         <div className="online">
 
                         </div>

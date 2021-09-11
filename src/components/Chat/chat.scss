@@ -27,6 +27,9 @@
     margin: 0;
 }
 
+.chatboxx{
+    overflow: auto;
+}
 .content {
     max-height: 0;
     overflow: hidden;
@@ -42,6 +45,7 @@
     scrollbar-width: none;
     height: max-content;
     transition: max-height 0.2s ease-out;
+    position: relative;
 }
 
 .outer-container {
@@ -74,6 +78,8 @@
     background-color: rgb(235, 235, 235);
     border-radius: 10px 10px 0px 0px;
     padding: 10px 0px 10px 10px;
+  
+
 }
 
 .chat-bar-icons {
@@ -114,7 +120,9 @@
     font-size: 16px;
     font-weight: normal;
     text-align: right;
+    left: auto;
     clear: both;
+    word-wrap: break-word;
 }
 
 .userText span {
@@ -126,6 +134,7 @@
     border-bottom-right-radius: 2px;
     max-width: 80%;
     margin-right: 10px;
+    text-align: left;
     animation: floatup .5s forwards
 }
 
@@ -135,6 +144,7 @@
     font-weight: normal;
     font-size: 16px;
     text-align: left;
+    word-wrap: break-word;
 }
 
 .botText span {

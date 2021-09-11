@@ -11,7 +11,8 @@ export default class Contacts extends Component{
                         return(
                             <React.Fragment>
                                 {
-                                    contacts.length > 0 && contacts.map(contact => 
+                                     contacts.length > 0 && 
+                                    contacts.map(contact => 
                                         <Post
                                         key={contact.id}
                                         id={contact.id}
@@ -23,6 +24,7 @@ export default class Contacts extends Component{
                                         like={contact.like}
                                         />
                                         )
+                                        
                                 }
                             </React.Fragment>
                         )

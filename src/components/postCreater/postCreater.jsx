@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import './postCreater.scss'
 import { Avatar } from '@material-ui/core'
 import VideocamIcon from '@material-ui/icons/Videocam';
@@ -19,12 +19,16 @@ function PostCreator(){
     const [img, setImg] = useState(null);
     const [viewImage, setViewImage] = useState('')
     var arr;
+    
+   
     datab.once('value').then(snapshot => {
        arr = Object.values(snapshot.val()).length;
       })
+      
     const user = {
         img : firebase.auth().currentUser.photoURL,
-        name : firebase.auth().currentUser.displayName
+        name : firebase.auth().currentUser.displayName,
+        userID : firebase.auth().currentUser.uid
     }
     const storage = firebase.storage();
     
@@ -68,6 +72,8 @@ function PostCreator(){
                 </form>
                 
             </div>
+           
+            
             <img src={viewImage} alt="Anh" id="Anh" className="img"/>
             <div className="postcreator__bottom">
             <div className="postcreator__bottom--option">
@@ -85,12 +91,13 @@ function PostCreator(){
             </div>
             </div>
             <div className="postcreator__bottom1">
-           <button  onClick = {() => {
+           <button id="posh"  onClick = {() => {
         var date = new Date();
         var connecteData = firebase.database().ref('post');
       
         connecteData.push({
            id: Math.random(),
+           userID: user.userID,
             authorName: user.name,
             authorPic: user.img,
             message: input,
@@ -103,9 +110,16 @@ function PostCreator(){
         setViewImage("");
         document.getElementById("Anh").removeAttribute("style","");
         
-    } } className="btn">Post</button>
+    } 
+    
+    }
+    
+        
+        
+         className="btn">Post</button>
             </div>
-
+        
+             
         </div>
     )
 }

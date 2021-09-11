@@ -42,27 +42,29 @@ function Chat () {
         let time = hours + ":" + minutes;
         document.getElementById("chat-timestamp").innerHTML = time.toString();
     }
-    const submit = () => {
+    const scrollWin = (x, y) =>  {
+        window.scrollBy(x, y);
+      }
+    const sendmsg = () => {
             let fireStore = firebase.database().ref('/Chat');
             let data = {
             UserID : user.id,
             value,
-            
             };
-            try {
             fireStore.push(data);
-            console.log('push success!');
-            setUserID('');
-            setValue('');
-
-            } catch (error) {
-            console.log("error", error);
-
-            }
+            document.getElementById("userInput").scrollIntoView(true);
+            scrollWin(0,1000)
+            setValue("");
     }
     useEffect(() => {
         // get list data here
         const fireStore = firebase.database().ref('/Chat')
+        document.getElementById("textsend").addEventListener("keyup", function(event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                document.getElementById("send").click();
+            }
+        });
         fireStore.on('value', (res) => {
           const data = res.val();
           let chatList = [];
@@ -78,11 +80,13 @@ function Chat () {
         })
     
       }, [])
+      
+
       console.log(listChat);
     return (
 
         <div>
-                <form>
+              
                 <div className="chat-bar-collapsible">
         <button id="chat-button" type="button" onClick={showchat} className="collapsible active">
             <Avatar src={user.img} />
@@ -96,7 +100,7 @@ function Chat () {
                 <div className="outer-container">
                     <div className="chat-container">
                        
-                        <div id="chatbox">
+                        <div id="chatbox" class="chatboxx">
                             <h5 id="chat-timestamp"></h5>
                             {
                                 listChat && listChat.map(el => {
@@ -109,7 +113,9 @@ function Chat () {
                                     if(el.userID == "start"){
                                         return <p style={{display: 'none'}}></p>
                                     }
+                                   document.getElementById("userInput").scrollIntoView(true);
                                 })
+                                
                             }
                           
                         </div>
@@ -117,14 +123,14 @@ function Chat () {
                  
                         <div class="chat-bar-input-block">
                             <div id="userInput">
-                                <input id="text" value={value} onChange={(e) => {setValue(e.target.value)}} className="input-box" type="text" placeholder="Tap 'Enter' to send a message"/>
+                                <input id="textsend" value={value} onChange={(e) => {setValue(e.target.value)}} className="input-box" type="text" placeholder="Tap 'Enter' to send a message"/>
                                 <p></p>
                             </div>
 
                             <div className="chat-bar-icons">
                                 {/* <i id="chat-icon" style={{color: crimson}} className="fa fa-fw fa-heart"
                                     onclick="heartButton()"></i> */}
-                                    <button onClick={submit} id="send" ><SendIcon/></button>
+                                    <button onClick={sendmsg } id="send" ><SendIcon/></button>
                             </div>
                         </div>
 
@@ -140,7 +146,7 @@ function Chat () {
 
     </div>
                
-            </form>
+           
         </div>
     )
 }
