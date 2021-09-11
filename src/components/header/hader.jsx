@@ -100,10 +100,11 @@ function Header(){
                 <Avatar alt="Cindy Baker" src={user.img} />
                 </div>
             <div className="text-user">
-             <strong>{user.name}</strong>
-             <p>Try cập trang cá nhân của bạn</p>
-             </div>
-
+                <Link to="/profile">
+                <strong>{user.name}</strong>
+                <p>Try cập trang cá nhân của bạn</p>
+                </Link>
+            </div>
             </button>
             
             <button className="info__icon">

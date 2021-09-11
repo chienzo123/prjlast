@@ -49,7 +49,7 @@ function App() {
         <Router basename={process.env.PUBLIC_URL}>
           <Header />
           <Switch>
-          <Route exact path="/pro" component={Profile} />
+          <Route exact path="/profile" component={Profile} />
           { <div className="app__body">
             <LeftSidebar />
             <Switch>

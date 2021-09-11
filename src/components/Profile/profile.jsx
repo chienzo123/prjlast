@@ -1,5 +1,5 @@
 import React from 'react'
- //import './profile.css';
+ import './profile.css';
 // import Avatar from '@material-ui/core/Avatar';
 // import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import VisibilityIcon from '@material-ui/icons/Visibility';

@@ -10,6 +10,7 @@ import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import firebase from 'firebase';
 
+import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 
 function LeftSidebar () {
 
@@ -19,7 +20,10 @@ function LeftSidebar () {
     }
     return(
         <div className="sidebar sidebar__left">
-            <SidebarRow src = {user.img} title = {user.name} />
+
+            <Link to ="/profile">
+                <SidebarRow src = {user.img} title = {user.name} />
+            </Link>
             <SidebarRow Icon = {LocalHospitalIcon} title = "Covid-19 Imfomation Center" />
             <SidebarRow Icon = {EmojiFlagsIcon} title = "Pages" />
             <SidebarRow Icon = {PeopleIcon} title = "Friends" />
